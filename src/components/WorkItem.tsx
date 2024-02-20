@@ -102,9 +102,9 @@ const WorkItem = ({
 	isVite,
 }: WorkItemProps) => {
 	return (
-		<div className="flex justify-between   bg-neutral">
-			<div className="px-8 flex flex-col items-start justify-start  gap-y-4 py-4 max-w-[600px]">
-				<h3 className="text-2xl text-white font-semibold">{title}</h3>
+		<div className="flex flex-col justify-center  md:flex-row md:justify-between   bg-neutral">
+			<div className="px-8 flex flex-col items-start justify-start  gap-y-4 py-4 max-w-[600px] order-2 md:order-1 ">
+				<h3 className="text-2xl text-white font-semibold ">{title}</h3>
 				<div className="flex justify-start flex-wrap gap-2 items-center">
 					{isPCRecommended &&
 						WorkItemBadge(<RiComputerFill />, "PC Recommended")}
@@ -129,7 +129,7 @@ const WorkItem = ({
 			</div>
 			<img
 				src={img}
-				className="aspect-square object-cover md:max-w-[17rem] border-2 border-neutral"
+				className="aspect-video object-top md:aspect-square object-cover max-h-[15rem] md:max-w-[17rem] border-2 border-neutral order-1 md:order-2"
 			/>
 		</div>
 	)

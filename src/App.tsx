@@ -1,4 +1,4 @@
-import { About, Contact, Footer, Navbar, Skills, Works } from "./components"
+import { About, Contact, Navbar, Skills, Works } from "./components"
 import "./index.css"
 
 function App() {
@@ -11,8 +11,6 @@ function App() {
 				<Works />
 				<Contact />
 			</div>
-
-			<Footer />
 		</>
 	)
 }
