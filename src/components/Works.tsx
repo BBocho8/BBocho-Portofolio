@@ -6,7 +6,10 @@ import img4 from "../assets/portfolio.png"
 
 const Works = () => {
 	return (
-		<section id="works" className="px-4 flex flex-col gap-y-4 pt-16">
+		<section
+			id="works"
+			className="px-4  gap-y-4 xl:gap-y-8 pt-16 grid xl:grid-cols-2 xl:gap-x-8"
+		>
 			<WorkItem
 				title="Racing Club de Rouen"
 				desc="A Website for an ambitious football who wants to takeover. Thanks to

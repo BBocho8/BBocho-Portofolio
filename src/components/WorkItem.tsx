@@ -103,7 +103,7 @@ const WorkItem = ({
 }: WorkItemProps) => {
 	return (
 		<div className="flex flex-col justify-center  md:flex-row md:justify-between   bg-neutral">
-			<div className="px-8 flex flex-col  items-center md:items-start justify-start  gap-y-4 py-4 max-w-[600px] order-2 md:order-1 ">
+			<div className="px-8 flex flex-col  items-center md:items-start justify-start  gap-y-4 py-4 xl:py-8 max-w-[600px] order-2 md:order-1 ">
 				<h3 className="text-2xl text-white font-semibold text-center">
 					{title}
 				</h3>
@@ -133,7 +133,7 @@ const WorkItem = ({
 			</div>
 			<img
 				src={img}
-				className="aspect-video object-top md:aspect-square object-cover max-h-[15rem] md:max-w-[17rem] border-2 border-neutral order-1 md:order-2"
+				className="aspect-video object-top md:aspect-square object-cover max-h-[15rem] md:max-w-[17rem] xl:max-h-[25rem] border-2 border-neutral order-1 md:order-2"
 			/>
 		</div>
 	)
