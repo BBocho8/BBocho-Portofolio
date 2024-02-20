@@ -78,7 +78,7 @@ const skillsList: Skill[] = [
 
 const Skills = () => {
 	return (
-		<section className="mx-auto pb-16  px-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+		<section className="mx-auto pb-20  px-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
 			{skillsList.map((skill) => {
 				return <SkillBox key={skill.text} text={skill.text} icon={skill.icon} />
 			})}

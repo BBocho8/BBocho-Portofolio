@@ -29,7 +29,7 @@ const WorkItemButton = (
 	sourceCodeLink: string = "/"
 ) => {
 	return (
-		<div className="flex gap-x-1.5 justify-start items-center">
+		<div className="flex gap-x-1.5 justify-center md:justify-start items-center">
 			{isDemo && (
 				<a href={demoLink} target="_blank" rel="noreferrer">
 					<button className="flex justify-center items-center gap-x-2 btn btn-sm btn-outline ">
@@ -103,9 +103,11 @@ const WorkItem = ({
 }: WorkItemProps) => {
 	return (
 		<div className="flex flex-col justify-center  md:flex-row md:justify-between   bg-neutral">
-			<div className="px-8 flex flex-col items-start justify-start  gap-y-4 py-4 max-w-[600px] order-2 md:order-1 ">
-				<h3 className="text-2xl text-white font-semibold ">{title}</h3>
-				<div className="flex justify-start flex-wrap gap-2 items-center">
+			<div className="px-8 flex flex-col  items-center md:items-start justify-start  gap-y-4 py-4 max-w-[600px] order-2 md:order-1 ">
+				<h3 className="text-2xl text-white font-semibold text-center">
+					{title}
+				</h3>
+				<div className="flex justify-center md:justify-start flex-wrap gap-2 items-center">
 					{isPCRecommended &&
 						WorkItemBadge(<RiComputerFill />, "PC Recommended")}
 					{isMobileRecommended &&
@@ -124,7 +126,9 @@ const WorkItem = ({
 					{isStripe && WorkItemBadge(<SiStrapi />, "Stripe")}
 					{isContentful && WorkItemBadge(<SiContentful />, "Contentful")}
 				</div>
-				<p className="font-light text-white tracking-wide text-sm">{desc}</p>
+				<p className="font-light text-white tracking-wide text-sm text-center md:text-justify">
+					{desc}
+				</p>
 				{WorkItemButton(isDemo, isSourceCode, demoLink, sourceCodeLink)}
 			</div>
 			<img
