@@ -11,3 +11,12 @@
 		@apply font-roboto   m-0 p-0;
 	}
 }
+
+@layer components {
+	.navBgColor {
+		background-color: var(--fallback-b1, oklch(var(--b1) / 1));
+	}
+	.navLink {
+		@apply font-medium text-white text-sm nav:text-lg link-accent;
+	}
+}

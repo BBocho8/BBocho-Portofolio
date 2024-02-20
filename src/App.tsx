@@ -5,9 +5,11 @@ function App() {
 	return (
 		<>
 			<Navbar />
-			<About />
-			<Works />
-			<Contact />
+			<div className="mt-[74px] nav:mt-[90px] nav2:mt-[62px]">
+				<About />
+				<Works />
+				<Contact />
+			</div>
 
 			<Footer />
 		</>
