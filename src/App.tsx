@@ -1,4 +1,4 @@
-import { About, Contact, Footer, Navbar, Works } from "./components"
+import { About, Contact, Footer, Navbar, Skills, Works } from "./components"
 import "./index.css"
 
 function App() {
@@ -7,6 +7,7 @@ function App() {
 			<Navbar />
 			<div className="mt-[74px] nav:mt-[90px] nav2:mt-[62px]">
 				<About />
+				<Skills />
 				<Works />
 				<Contact />
 			</div>
