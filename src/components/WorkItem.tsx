@@ -103,11 +103,11 @@ const WorkItem = ({
 }: WorkItemProps) => {
 	return (
 		<div className="flex flex-col justify-center  md:flex-row md:justify-between   bg-neutral">
-			<div className="px-8 flex flex-col  items-center md:items-start justify-start  gap-y-4 py-4 xl:py-8 max-w-[600px] order-2 md:order-1 ">
+			<div className="px-8 flex flex-col  items-center md:items-start xl:items-center justify-start  gap-y-4 py-4 xl:py-8 max-w-[600px] order-2 md:order-1 ">
 				<h3 className="text-2xl text-white font-semibold text-center">
 					{title}
 				</h3>
-				<div className="flex justify-center md:justify-start flex-wrap gap-2 items-center">
+				<div className="flex justify-center md:justify-start xl:justify-center flex-wrap gap-2 items-center">
 					{isPCRecommended &&
 						WorkItemBadge(<RiComputerFill />, "PC Recommended")}
 					{isMobileRecommended &&
@@ -126,7 +126,7 @@ const WorkItem = ({
 					{isStripe && WorkItemBadge(<SiStrapi />, "Stripe")}
 					{isContentful && WorkItemBadge(<SiContentful />, "Contentful")}
 				</div>
-				<p className="font-light text-white tracking-wide text-sm text-center md:text-justify">
+				<p className="font-light text-white tracking-wide text-sm text-center md:text-justify xl:text-center">
 					{desc}
 				</p>
 				{WorkItemButton(isDemo, isSourceCode, demoLink, sourceCodeLink)}
