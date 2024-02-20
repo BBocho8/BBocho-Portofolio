@@ -11,7 +11,7 @@ const Contact = () => {
 			</p>
 			<MdOutlineKeyboardDoubleArrowRight size={20} />
 			<a href="mailto:bricebraquin@live.fr">
-				<button className="btn btn-xs nav:btn-sm btn-outline">
+				<button className="btn btn-xs nav:btn-sm btn-outline rounded-sm">
 					bricebraquin@live.fr
 				</button>
 			</a>
