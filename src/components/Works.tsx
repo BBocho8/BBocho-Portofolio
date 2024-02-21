@@ -8,7 +8,7 @@ const Works = () => {
 	return (
 		<section
 			id="works"
-			className="px-4  gap-y-4 xl:gap-y-8 pt-16 grid xl:grid-cols-2 xl:gap-x-8"
+			className="grid px-4 pt-16 gap-y-4 xl:gap-y-8 xl:grid-cols-2 xl:gap-x-8"
 		>
 			<WorkItem
 				title="Racing Club de Rouen"
@@ -29,9 +29,7 @@ const Works = () => {
 			/>
 			<WorkItem
 				title="My Workout Planner App"
-				desc="A Website for an ambitious football who wants to takeover. Thanks to
-					the blog section and the functional shop they will now have an
-					advantage over their regional competitors."
+				desc="Explore my workout planner website featuring a vast exercise library and intuitive planning tools. Empower your fitness journey with personalized workouts tailored to your goals."
 				isReact
 				isResponsive
 				isFirebase
@@ -46,9 +44,7 @@ const Works = () => {
 			/>
 			<WorkItem
 				title="SGE Mendig Bell Replay App "
-				desc="A Website for an ambitious football who wants to takeover. Thanks to
-					the blog section and the functional shop they will now have an
-					advantage over their regional competitors."
+				desc="Introducing SGE Replay: your go-to app for football team members and staff. Access all match results and relive game highlights with ease. Stay connected and informed on your team's performance effortlessly."
 				isReact
 				isResponsive
 				isMobileRecommended
@@ -64,9 +60,7 @@ const Works = () => {
 			/>
 			<WorkItem
 				title="Brice Braquin - Web Developer Portfolio "
-				desc="A Website for an ambitious football who wants to takeover. Thanks to
-					the blog section and the functional shop they will now have an
-					advantage over their regional competitors."
+				desc="This personal portfolio, made with React."
 				isReact
 				isPCRecommended={false}
 				isResponsive

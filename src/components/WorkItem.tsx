@@ -32,7 +32,7 @@ const WorkItemButton = (
 		<div className="flex gap-x-1.5 justify-center md:justify-start items-center">
 			{isDemo && (
 				<a href={demoLink} target="_blank" rel="noreferrer">
-					<button className="flex justify-center items-center gap-x-2 btn btn-sm btn-outline ">
+					<button className="flex items-center justify-center gap-x-2 btn btn-sm btn-outline ">
 						<span>
 							<SiVercel />
 						</span>
@@ -42,7 +42,7 @@ const WorkItemButton = (
 			)}
 			{isSourceCode && (
 				<a href={sourceCodeLink} target="_blank" rel="noreferrer">
-					<button className="flex justify-center items-center gap-x-2 btn btn-sm btn-outline ">
+					<button className="flex items-center justify-center gap-x-2 btn btn-sm btn-outline ">
 						<span>
 							<FaGithub />
 						</span>
@@ -102,12 +102,12 @@ const WorkItem = ({
 	isVite,
 }: WorkItemProps) => {
 	return (
-		<div className="flex flex-col justify-center  md:flex-row md:justify-between   bg-neutral">
+		<div className="flex flex-col justify-center md:flex-row md:justify-between bg-neutral">
 			<div className="px-8 flex flex-col  items-center md:items-start xl:items-center justify-start  gap-y-4 py-4 xl:py-8 max-w-[600px] order-2 md:order-1 ">
-				<h3 className="text-2xl text-white font-semibold text-center">
+				<h3 className="text-2xl font-semibold text-center text-white">
 					{title}
 				</h3>
-				<div className="flex justify-center md:justify-start xl:justify-center flex-wrap gap-2 items-center">
+				<div className="flex flex-wrap items-center justify-center gap-2 md:justify-start xl:justify-center">
 					{isPCRecommended &&
 						WorkItemBadge(<RiComputerFill />, "PC Recommended")}
 					{isMobileRecommended &&
@@ -126,7 +126,7 @@ const WorkItem = ({
 					{isStripe && WorkItemBadge(<SiStrapi />, "Stripe")}
 					{isContentful && WorkItemBadge(<SiContentful />, "Contentful")}
 				</div>
-				<p className="font-light text-white tracking-wide text-sm text-center md:text-justify xl:text-center">
+				<p className="text-sm font-light tracking-wide text-center text-white md:text-justify xl:text-center">
 					{desc}
 				</p>
 				{WorkItemButton(isDemo, isSourceCode, demoLink, sourceCodeLink)}
