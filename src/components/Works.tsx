@@ -24,8 +24,8 @@ const Works = () => {
 				img={img}
 				isDemo
 				isSourceCode
-				demoLink="https://google.com"
-				sourceCodeLink="https://google.com"
+				demoLink="https://rc-rouen-app.vercel.app/"
+				sourceCodeLink="https://github.com/BBocho8/rc-rouen-app"
 			/>
 			<WorkItem
 				title="My Workout Planner App"
