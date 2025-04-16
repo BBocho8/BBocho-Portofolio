@@ -1,6 +1,6 @@
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6"
-import img from "../assets/bbocho.jpg"
-import { FaAngleDoubleDown } from "react-icons/fa"
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6";
+import img from "../assets/pdpocho.jpeg";
+import { FaAngleDoubleDown } from "react-icons/fa";
 
 const About = () => {
 	return (
@@ -10,7 +10,7 @@ const About = () => {
 		>
 			<div className="avatar">
 				<div className="w-20 rounded-full nav:w-28 hero:w-32 ring ring-primary ring-offset-base-100 ring-offset-2">
-					<img src={img} />
+					<img src={img} alt="avatar" />
 				</div>
 			</div>
 			<div className="flex flex-col gap-y-1 hero:gap-y-2">
@@ -64,7 +64,7 @@ const About = () => {
 			</div>
 
 			<a href="#works">
-				<button className="btn hero:btn-lg btn-primary">
+				<button type="button" className="btn hero:btn-lg btn-primary">
 					<p className="flex items-center justify-center gap-x-4">
 						SEE MY PROJECTS
 						<span className="animate-bounce">
@@ -74,6 +74,6 @@ const About = () => {
 				</button>
 			</a>
 		</section>
-	)
-}
-export default About
+	);
+};
+export default About;
