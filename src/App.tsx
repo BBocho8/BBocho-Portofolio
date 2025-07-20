@@ -5,10 +5,14 @@ function App() {
 	return (
 		<>
 			<Navbar />
-			<div className="mt-[74px] nav:mt-[90px] nav2:mt-[62px]">
+			<div className="pt-16 sm:pt-[74px] nav:pt-[90px] nav2:pt-[62px]">
 				<About />
-				<Skills />
-				<Works />
+				<div id="skills">
+					<Skills />
+				</div>
+				<div id="works">
+					<Works />
+				</div>
 				<Contact />
 			</div>
 		</>
