@@ -1,86 +1,96 @@
+import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
-import { FaBars, FaTimes } from "react-icons/fa"
+import { HiArrowUpRight, HiBars3, HiXMark } from "react-icons/hi2"
+import Button from "./ui/Button"
+import ThemeToggle from "./ui/ThemeToggle"
 
-const Navbar = () => {
+type NavbarProps = {
+	theme: "light" | "dark"
+	onToggleTheme: () => void
+}
+
+const navItems = [
+	{ href: "#about", label: "About" },
+	{ href: "#skills", label: "Skills" },
+	{ href: "#works", label: "Projects" },
+	{ href: "#contact", label: "Contact" },
+]
+
+const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
 	const [isOpen, setIsOpen] = useState(false)
 
-	const toggleMenu = () => {
-		setIsOpen(!isOpen)
-	}
-
 	return (
-		<nav className="fixed top-0 left-0 right-0 z-50 navBgColor">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6">
-				<div className="flex justify-between items-center h-16 sm:h-[74px] nav:h-[90px] nav2:h-[62px]">
-					{/* Logo */}
-					<div className="flex items-center">
-						<a href="#about" className="text-lg sm:text-xl font-bold gradient-text">
-							Brice Braquin
-						</a>
+		<nav className="fixed inset-x-0 top-0 z-50">
+			<div className="section-shell pt-4">
+				<div className="surface-card-strong flex items-center justify-between gap-4 px-4 py-3 md:px-6">
+					<a href="#about" className="flex items-center gap-3">
+						<div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent text-sm font-bold text-slate-950 shadow-[0_12px_35px_-18px_hsl(var(--glow)/0.9)]">
+							BB
+						</div>
+						<div>
+							<p className="font-display text-sm font-bold uppercase tracking-[0.25em] text-muted">Brice Braquin</p>
+							<p className="text-xs text-muted">Frontend Engineer</p>
+						</div>
+					</a>
+
+					<div className="hidden items-center gap-2 rounded-full border border-line/80 bg-panel/70 p-1.5 md:flex">
+						{navItems.map((item) => (
+							<a
+								key={item.href}
+								href={item.href}
+								className="rounded-full px-4 py-2 text-sm font-medium text-muted transition-colors duration-300 hover:bg-panel-strong/80 hover:text-text"
+							>
+								{item.label}
+							</a>
+						))}
 					</div>
 
-					{/* Desktop Navigation */}
-					<div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-						<a href="#about" className="navLink text-sm lg:text-base">
-							About
-						</a>
-						<a href="#skills" className="navLink text-sm lg:text-base">
-							Skills
-						</a>
-						<a href="#works" className="navLink text-sm lg:text-base">
-							Projects
-						</a>
-						<a href="#contact" className="navLink text-sm lg:text-base">
-							Contact
-						</a>
-					</div>
-
-					{/* Mobile menu button */}
-					<div className="md:hidden">
+					<div className="flex items-center gap-2">
+						<ThemeToggle theme={theme} onToggle={onToggleTheme} />
+						<div className="hidden md:block">
+							<Button href="#contact" variant="secondary" className="px-4 py-2.5">
+								Contact me
+								<HiArrowUpRight className="text-base" />
+							</Button>
+						</div>
 						<button
-							onClick={toggleMenu}
-							className="text-white hover:text-primary transition-colors duration-300 p-2"
+							type="button"
+							onClick={() => setIsOpen((currentOpen) => !currentOpen)}
+							className="button-ghost p-3 md:hidden"
+							aria-label={isOpen ? "Close navigation" : "Open navigation"}
 						>
-							{isOpen ? <FaTimes size={20} className="sm:w-6 sm:h-6" /> : <FaBars size={20} className="sm:w-6 sm:h-6" />}
+							{isOpen ? <HiXMark className="text-xl" /> : <HiBars3 className="text-xl" />}
 						</button>
 					</div>
 				</div>
 
-				{/* Mobile Navigation */}
-				{isOpen && (
-					<div className="md:hidden">
-						<div className="px-3 pt-2 pb-4 space-y-1 bg-slate-900/95 backdrop-blur-md rounded-lg mt-2 mx-2">
-							<a
-								href="#about"
-								className="navLink block px-3 py-3 rounded-md text-base font-medium"
-								onClick={() => setIsOpen(false)}
-							>
-								About
-							</a>
-							<a
-								href="#skills"
-								className="navLink block px-3 py-3 rounded-md text-base font-medium"
-								onClick={() => setIsOpen(false)}
-							>
-								Skills
-							</a>
-							<a
-								href="#works"
-								className="navLink block px-3 py-3 rounded-md text-base font-medium"
-								onClick={() => setIsOpen(false)}
-							>
-								Projects
-							</a>
-							<a
-								href="#contact"
-								className="navLink block px-3 py-3 rounded-md text-base font-medium"
-								onClick={() => setIsOpen(false)}
-							>
-								Contact
-							</a>
-						</div>
-					</div>
-				)}
+				<AnimatePresence>
+					{isOpen ? (
+						<motion.div
+							className="surface-card mt-3 overflow-hidden md:hidden"
+							initial={{ opacity: 0, y: -12 }}
+							animate={{ opacity: 1, y: 0 }}
+							exit={{ opacity: 0, y: -12 }}
+							transition={{ duration: 0.2 }}
+						>
+							<div className="flex flex-col gap-1 p-3">
+								{navItems.map((item) => (
+									<a
+										key={item.href}
+										href={item.href}
+										onClick={() => setIsOpen(false)}
+										className="rounded-2xl px-4 py-3 text-sm font-medium text-muted transition-colors duration-300 hover:bg-panel-strong/80 hover:text-text"
+									>
+										{item.label}
+									</a>
+								))}
+								<Button href="#contact" variant="primary" className="mt-2 w-full">
+									Contact me
+								</Button>
+							</div>
+						</motion.div>
+					) : null}
+				</AnimatePresence>
 			</div>
 		</nav>
 	)

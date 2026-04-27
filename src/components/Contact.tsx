@@ -1,59 +1,63 @@
-import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md"
-import { MdEmail } from "react-icons/md"
+import { motion } from "framer-motion"
+import { FaGithub, FaLinkedinIn } from "react-icons/fa6"
+import { HiArrowRight, HiEnvelope } from "react-icons/hi2"
+import Button from "./ui/Button"
+import Section from "./ui/Section"
 
 const Contact = () => {
 	return (
-		<section
+		<Section
 			id="contact"
-			className="max-w-4xl mx-auto px-4 sm:px-6 py-12 sm:py-16"
+			title="Let&apos;s talk about building better digital products"
+			eyebrow="Get In Touch"
+			description="I&apos;m currently working at Bonn Consulting, and I&apos;m always happy to connect around strong frontend work, product quality, and interesting collaborations."
 		>
-			{/* Section Header */}
-			<div className="text-center mb-8 sm:mb-12 fade-in">
-				<h2 className="text-2xl sm:text-3xl font-bold gradient-text mb-3 sm:mb-4 hero:text-4xl">
-					Let's Work Together
-				</h2>
-				<p className="text-slate-300 max-w-2xl mx-auto text-base sm:text-lg px-4 sm:px-0">
-					Ready to bring your ideas to life? I'm always excited to work on new projects and collaborate with amazing people.
-				</p>
-			</div>
-
-			{/* Contact Card */}
-			<div className="glass-card p-6 sm:p-8 text-center fade-in">
-				<div className="flex flex-col items-center gap-y-4 sm:gap-y-6">
-					<div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
-						<MdEmail size={24} className="sm:w-8 sm:h-8 text-white" />
+			<motion.div
+				className="surface-card-strong overflow-hidden p-6 sm:p-8"
+				initial={{ opacity: 0, y: 24 }}
+				whileInView={{ opacity: 1, y: 0 }}
+				viewport={{ once: true, amount: 0.25 }}
+				transition={{ duration: 0.45 }}
+			>
+				<div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+					<div className="space-y-5">
+						<div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-soft text-accent">
+							<HiEnvelope className="text-2xl" />
+						</div>
+						<div>
+							<h3 className="font-display text-3xl font-bold sm:text-4xl">Currently at Bonn Consulting, always open to good conversations.</h3>
+							<p className="mt-3 max-w-2xl text-base leading-7 text-muted">
+								If you want to talk about a role, a product challenge, or a collaboration where frontend quality really matters, feel free to reach out.
+							</p>
+						</div>
+						<div className="flex flex-wrap gap-3">
+							<a href="https://github.com/BBocho8/" target="_blank" rel="noreferrer" className="button-secondary px-4 py-3">
+								<FaGithub />
+								GitHub
+							</a>
+							<a
+								href="https://www.linkedin.com/in/bricebraquin/"
+								target="_blank"
+								rel="noreferrer"
+								className="button-secondary px-4 py-3"
+							>
+								<FaLinkedinIn />
+								LinkedIn
+							</a>
+						</div>
 					</div>
-					
-					<div>
-						<h3 className="text-lg sm:text-xl font-semibold text-white mb-2">
-							Get In Touch
-						</h3>
-						<p className="text-sm sm:text-base text-slate-300 mb-4 sm:mb-6">
-							I'm currently available for freelance work and exciting opportunities.
-						</p>
-					</div>
 
-					<div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
-						<span className="text-sm sm:text-base text-slate-300 font-medium">
-							Ready to start a project?
-						</span>
-						<MdOutlineKeyboardDoubleArrowRight size={20} className="sm:w-6 sm:h-6 text-primary" />
-						<a href="mailto:bricebraquin@live.fr" className="w-full sm:w-auto">
-							<button className="btn-modern btn btn-md sm:btn-lg rounded-full px-6 sm:px-8 py-2 sm:py-3 font-semibold text-sm sm:text-base w-full sm:w-auto">
-								bricebraquin@live.fr
-							</button>
-						</a>
+					<div className="flex flex-col gap-3 lg:items-end">
+						<Button href="mailto:bricebraquin@live.fr" variant="primary" className="w-full sm:w-auto">
+							Email me
+							<HiArrowRight className="text-base" />
+						</Button>
+						<p className="text-sm font-medium text-text">bricebraquin@live.fr</p>
+						<p className="text-sm text-muted">Typically replies within 24 hours on business days.</p>
 					</div>
 				</div>
-			</div>
-
-			{/* Additional Info */}
-			<div className="mt-6 sm:mt-8 text-center">
-				<p className="text-xs sm:text-sm text-slate-400">
-					I typically respond within 24 hours during business days.
-				</p>
-			</div>
-		</section>
+			</motion.div>
+		</Section>
 	)
 }
 
