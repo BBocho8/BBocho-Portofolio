@@ -1,98 +1,81 @@
-import { AnimatePresence, motion } from "framer-motion"
-import { useState } from "react"
-import { HiArrowUpRight, HiBars3, HiXMark } from "react-icons/hi2"
-import Button from "./ui/Button"
-import ThemeToggle from "./ui/ThemeToggle"
+import { useEffect, useState } from "react"
+import { LuMenu, LuX } from "react-icons/lu"
 
 type NavbarProps = {
-	theme: "light" | "dark"
-	onToggleTheme: () => void
+	// Section links point at the home page when rendered on another page
+	base?: string
 }
 
-const navItems = [
-	{ href: "#about", label: "About" },
-	{ href: "#skills", label: "Skills" },
-	{ href: "#works", label: "Projects" },
-	{ href: "#contact", label: "Contact" },
-]
+const Navbar = ({ base = "" }: NavbarProps) => {
+	const [scrolled, setScrolled] = useState(false)
+	const [open, setOpen] = useState(false)
 
-const Navbar = ({ theme, onToggleTheme }: NavbarProps) => {
-	const [isOpen, setIsOpen] = useState(false)
+	useEffect(() => {
+		const onScroll = () => setScrolled(window.scrollY > 24)
+		onScroll()
+		window.addEventListener("scroll", onScroll, { passive: true })
+		return () => window.removeEventListener("scroll", onScroll)
+	}, [])
+
+	const links = [
+		{ href: `${base}#work`, label: "Work" },
+		{ href: `${base}#about`, label: "About" },
+		{ href: `${base}#contact`, label: "Contact" },
+	]
 
 	return (
-		<nav className="fixed inset-x-0 top-0 z-50">
-			<div className="section-shell pt-4">
-				<div className="surface-card-strong flex items-center justify-between gap-4 px-4 py-3 md:px-6">
-					<a href="#about" className="flex items-center gap-3">
-						<div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent text-sm font-bold text-slate-950 shadow-[0_12px_35px_-18px_hsl(var(--glow)/0.9)]">
-							BB
-						</div>
-						<div>
-							<p className="font-display text-sm font-bold uppercase tracking-[0.25em] text-muted">Brice Braquin</p>
-							<p className="text-xs text-muted">Frontend Engineer</p>
-						</div>
+		<header
+			className={`fixed inset-x-0 top-0 z-50 text-white transition-colors duration-200 ease-brand ${
+				scrolled || open ? "bg-navy-deep/85 backdrop-blur-[16px]" : "bg-transparent"
+			}`}
+		>
+			<nav className="container-page flex h-[72px] items-center justify-between border-b border-white/[0.08] lg:h-[88px]">
+				<a href={base || "#top"} className="flex items-baseline gap-3">
+					<span className="font-display text-lg font-medium tracking-[-0.01em] sm:text-xl">Brice Braquin</span>
+					<span className="mono hidden text-[11px] text-fog-faint sm:inline">Full-stack engineer</span>
+				</a>
+
+				<div className="hidden items-center gap-9 text-[15px] text-fog md:flex">
+					{links.map((link) => (
+						<a key={link.href} href={link.href} className="transition-colors duration-120 hover:text-white">
+							{link.label}
+						</a>
+					))}
+					<a href={`${base}#contact`} className="btn-primary h-11 px-5">
+						Get in touch
 					</a>
-
-					<div className="hidden items-center gap-2 rounded-full border border-line/80 bg-panel/70 p-1.5 md:flex">
-						{navItems.map((item) => (
-							<a
-								key={item.href}
-								href={item.href}
-								className="rounded-full px-4 py-2 text-sm font-medium text-muted transition-colors duration-300 hover:bg-panel-strong/80 hover:text-text"
-							>
-								{item.label}
-							</a>
-						))}
-					</div>
-
-					<div className="flex items-center gap-2">
-						<ThemeToggle theme={theme} onToggle={onToggleTheme} />
-						<div className="hidden md:block">
-							<Button href="#contact" variant="secondary" className="px-4 py-2.5">
-								Contact me
-								<HiArrowUpRight className="text-base" />
-							</Button>
-						</div>
-						<button
-							type="button"
-							onClick={() => setIsOpen((currentOpen) => !currentOpen)}
-							className="button-ghost p-3 md:hidden"
-							aria-label={isOpen ? "Close navigation" : "Open navigation"}
-						>
-							{isOpen ? <HiXMark className="text-xl" /> : <HiBars3 className="text-xl" />}
-						</button>
-					</div>
 				</div>
 
-				<AnimatePresence>
-					{isOpen ? (
-						<motion.div
-							className="surface-card mt-3 overflow-hidden md:hidden"
-							initial={{ opacity: 0, y: -12 }}
-							animate={{ opacity: 1, y: 0 }}
-							exit={{ opacity: 0, y: -12 }}
-							transition={{ duration: 0.2 }}
+				<button
+					type="button"
+					className="flex h-11 w-11 items-center justify-center rounded-md border border-white/20 md:hidden"
+					aria-label={open ? "Close menu" : "Open menu"}
+					aria-expanded={open}
+					aria-controls="mobile-menu"
+					onClick={() => setOpen((value) => !value)}
+				>
+					{open ? <LuX size={20} /> : <LuMenu size={20} />}
+				</button>
+			</nav>
+
+			{open && (
+				<div id="mobile-menu" className="container-page flex flex-col gap-1 pb-6 pt-3 md:hidden">
+					{links.map((link) => (
+						<a
+							key={link.href}
+							href={link.href}
+							onClick={() => setOpen(false)}
+							className="rounded-md px-2 py-3 font-display text-2xl font-medium text-white hover:bg-white/5"
 						>
-							<div className="flex flex-col gap-1 p-3">
-								{navItems.map((item) => (
-									<a
-										key={item.href}
-										href={item.href}
-										onClick={() => setIsOpen(false)}
-										className="rounded-2xl px-4 py-3 text-sm font-medium text-muted transition-colors duration-300 hover:bg-panel-strong/80 hover:text-text"
-									>
-										{item.label}
-									</a>
-								))}
-								<Button href="#contact" variant="primary" className="mt-2 w-full">
-									Contact me
-								</Button>
-							</div>
-						</motion.div>
-					) : null}
-				</AnimatePresence>
-			</div>
-		</nav>
+							{link.label}
+						</a>
+					))}
+					<a href={`${base}#contact`} onClick={() => setOpen(false)} className="btn-primary mt-3">
+						Get in touch
+					</a>
+				</div>
+			)}
+		</header>
 	)
 }
 

@@ -1,158 +1,54 @@
-import { motion } from "framer-motion"
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6"
-import { HiArrowDownRight, HiArrowUpRight, HiSparkles } from "react-icons/hi2"
-import img from "../assets/pdpocho.jpeg"
-import Button from "./ui/Button"
+import sprintImg from "../assets/about-sprint.webp"
+import { about } from "../content"
+import { Mark, MarkLayer, MarkText } from "./ui/Mark"
+import Reveal from "./ui/Reveal"
 
 const About = () => {
-	const strengths = [
-		"UI architecture",
-		"Design systems",
-		"Product-minded frontend",
-	]
-
-	const profileCards = [
-		{
-			label: "Current role",
-			value: "Bonn Consulting",
-			text: "Frontend engineer since April 2024.",
-		},
-		{
-			label: "Flagship product",
-			value: "My Annotator",
-			text: "200+ active users and paid plans.",
-		},
-		{
-			label: "Core focus",
-			value: "React + systems",
-			text: "Reusable UI, motion, testing, and performance.",
-		},
-		{
-			label: "Built for",
-			value: "Real usage",
-			text: "Products that need clarity, speed, and trust.",
-		},
-	]
-
 	return (
-		<section id="about" className="section-shell pb-20 pt-10 sm:pb-24 md:pt-14">
-			<div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:gap-14">
-				<motion.div
-					initial={{ opacity: 0, y: 24 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.7 }}
-					className="space-y-8"
-				>
-					<div className="space-y-6">
-						<div className="eyebrow">
-							<HiSparkles className="text-sm text-accent" />
-							<span>Frontend engineer. Product mindset. High standards.</span>
-						</div>
-						<div className="space-y-4">
-							<p className="text-sm font-semibold uppercase tracking-[0.35em] text-muted">Brice Braquin</p>
-							<h1 className="max-w-3xl font-display text-5xl font-bold leading-[0.95] tracking-tight text-balance sm:text-6xl lg:text-[4.25rem]">
-								I build modern interfaces that feel sharp, clear, and reliable.
-							</h1>
-							<p className="max-w-2xl text-lg leading-8 text-muted text-balance">
-								I&apos;m a frontend engineer focused on scalable UI, product clarity, and design systems that make complex experiences feel simple. I care about maintainability, user trust, and the small interaction details that raise the quality of a product.
-							</p>
-						</div>
-					</div>
+		<section id="about" className="relative overflow-hidden bg-navy-deep py-20 text-white lg:py-[120px]">
+			<div className="glow -left-[300px] -top-[300px] h-[800px] w-[800px] opacity-70" />
+			<div className="container-page relative grid items-center gap-12 lg:grid-cols-12 lg:gap-[72px]">
+				<Reveal className="lg:col-span-7">
+					<figure className="relative aspect-[658/520] overflow-hidden rounded-xl">
+						<img
+							src={sprintImg}
+							alt="Brice Braquin sprinting with the ball for SVE Mendig, a defender chasing"
+							width={1086}
+							height={724}
+							loading="lazy"
+							className="h-full w-full object-cover object-right [filter:saturate(0.85)_contrast(1.04)]"
+						/>
+						<MarkLayer viewBox="0 0 658 520" d="M 270 474 C 210 478, 150 462, 70 420">
+							<ellipse cx="312" cy="470" rx="46" ry="15" fill="none" stroke="#72FFC9" strokeWidth="3" />
+						</MarkLayer>
+						<Mark className="left-[5%] top-[69%] hidden sm:block">
+							<MarkText>Beat the press</MarkText>
+						</Mark>
+						<figcaption className="mono absolute right-5 top-4 text-[11px] text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.5)]">Photo · Horst Wengenroth</figcaption>
+					</figure>
+				</Reveal>
 
-					<div className="flex flex-wrap gap-3">
-						<Button href="#works" variant="primary">
-							See selected work
-							<HiArrowDownRight className="text-base" />
-						</Button>
-						<Button href="#contact" variant="secondary">
-							Get in touch
-							<HiArrowUpRight className="text-base" />
-						</Button>
-					</div>
-
-					<div className="flex flex-wrap gap-3">
-						{strengths.map((strength) => (
-							<span key={strength} className="pill">
-								<span className="h-1.5 w-1.5 rounded-full bg-accent" />
-								{strength}
-							</span>
+				<Reveal className="flex flex-col gap-6 lg:col-span-5" delay={0.06}>
+					<span className="mono text-mint">03 — Off the clock</span>
+					<h2 className="font-display text-[34px] font-medium leading-[1.1] tracking-[-0.02em] sm:text-[44px]">
+						Most of my ideas start on the pitch.
+					</h2>
+					<p className="text-[17px] leading-[1.65] text-fog">
+						I play up front for SVE Mendig. Match videos, tactics boards, a club website run by volunteers: when something
+						around the club is slow or clumsy, it usually turns into a side project.
+					</p>
+					<dl className="flex flex-col">
+						{about.map((row) => (
+							<div key={row.label} className="flex justify-between gap-4 border-t border-white/10 py-3.5 last:border-b">
+								<dt className="mono text-[11px] text-fog-faint">{row.label}</dt>
+								<dd className="text-right text-[15px]">{row.value}</dd>
+							</div>
 						))}
-					</div>
-				</motion.div>
-
-				<motion.div
-					initial={{ opacity: 0, y: 26 }}
-					animate={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.8, delay: 0.15 }}
-					className="relative lg:self-start"
-				>
-					<div className="absolute -right-8 top-6 hidden h-24 w-24 rounded-full bg-accent/20 blur-3xl lg:block" />
-					<div className="surface-card-strong spotlight-ring relative overflow-hidden p-5 sm:p-6 lg:max-w-[560px]">
-						<div className="grid gap-4 sm:grid-cols-[120px_minmax(0,1fr)]">
-							<div className="relative mx-auto aspect-square w-24 overflow-hidden rounded-[28px] border border-line/70 bg-panel sm:mx-0 sm:w-28">
-								<img src={img} alt="Brice Braquin" className="h-full w-full object-cover" />
-								<div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/20 to-transparent" />
-							</div>
-							<div className="space-y-3">
-								<div className="flex flex-wrap items-center justify-between gap-3">
-									<div>
-										<p className="font-display text-2xl font-bold">Brice Braquin</p>
-										<p className="text-sm text-muted">Frontend engineer building thoughtful, high-quality digital products.</p>
-									</div>
-									<div className="pill">
-										<span className="h-2 w-2 rounded-full bg-emerald-400" />
-										Currently at Bonn Consulting
-									</div>
-								</div>
-
-								<div className="grid gap-3 sm:grid-cols-2">
-									{profileCards.map((card) => (
-										<div key={card.label} className="surface-card rounded-[22px] p-4">
-											<p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted">{card.label}</p>
-											<p className="mt-2 font-display text-xl font-bold">{card.value}</p>
-											<p className="mt-2 text-sm leading-6 text-muted">{card.text}</p>
-										</div>
-									))}
-								</div>
-
-								<div className="surface-card rounded-[22px] p-4">
-									<div className="flex flex-wrap items-center justify-between gap-3">
-										<p className="text-xs font-semibold uppercase tracking-[0.25em] text-muted">Primary stack</p>
-										<div className="flex flex-wrap gap-2">
-											<span className="pill">React</span>
-											<span className="pill">Next.js</span>
-											<span className="pill">TypeScript</span>
-										</div>
-									</div>
-								</div>
-
-								<div className="flex flex-wrap gap-3">
-									<a
-										href="https://github.com/BBocho8/"
-										target="_blank"
-										rel="noreferrer"
-										className="button-secondary px-4 py-3"
-									>
-										<FaGithub className="text-base" />
-										GitHub
-									</a>
-									<a
-										href="https://www.linkedin.com/in/bricebraquin/"
-										target="_blank"
-										rel="noreferrer"
-										className="button-secondary px-4 py-3"
-									>
-										<FaLinkedinIn className="text-base" />
-										LinkedIn
-									</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</motion.div>
+					</dl>
+				</Reveal>
 			</div>
 		</section>
 	)
 }
 
-export default About;
+export default About

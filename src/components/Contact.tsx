@@ -1,63 +1,39 @@
-import { motion } from "framer-motion"
-import { FaGithub, FaLinkedinIn } from "react-icons/fa6"
-import { HiArrowRight, HiEnvelope } from "react-icons/hi2"
-import Button from "./ui/Button"
-import Section from "./ui/Section"
+import { contact } from "../content"
+import Reveal from "./ui/Reveal"
 
 const Contact = () => {
 	return (
-		<Section
-			id="contact"
-			title="Let&apos;s talk about building better digital products"
-			eyebrow="Get In Touch"
-			description="I&apos;m currently working at Bonn Consulting, and I&apos;m always happy to connect around strong frontend work, product quality, and interesting collaborations."
-		>
-			<motion.div
-				className="surface-card-strong overflow-hidden p-6 sm:p-8"
-				initial={{ opacity: 0, y: 24 }}
-				whileInView={{ opacity: 1, y: 0 }}
-				viewport={{ once: true, amount: 0.25 }}
-				transition={{ duration: 0.45 }}
-			>
-				<div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
-					<div className="space-y-5">
-						<div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-accent-soft text-accent">
-							<HiEnvelope className="text-2xl" />
-						</div>
-						<div>
-							<h3 className="font-display text-3xl font-bold sm:text-4xl">Currently at Bonn Consulting, always open to good conversations.</h3>
-							<p className="mt-3 max-w-2xl text-base leading-7 text-muted">
-								If you want to talk about a role, a product challenge, or a collaboration where frontend quality really matters, feel free to reach out.
-							</p>
-						</div>
-						<div className="flex flex-wrap gap-3">
-							<a href="https://github.com/BBocho8/" target="_blank" rel="noreferrer" className="button-secondary px-4 py-3">
-								<FaGithub />
-								GitHub
-							</a>
-							<a
-								href="https://www.linkedin.com/in/bricebraquin/"
-								target="_blank"
-								rel="noreferrer"
-								className="button-secondary px-4 py-3"
-							>
-								<FaLinkedinIn />
-								LinkedIn
-							</a>
-						</div>
-					</div>
-
-					<div className="flex flex-col gap-3 lg:items-end">
-						<Button href="mailto:bricebraquin@live.fr" variant="primary" className="w-full sm:w-auto">
-							Email me
-							<HiArrowRight className="text-base" />
-						</Button>
-						<p className="text-sm font-medium text-text">bricebraquin@live.fr</p>
-						<p className="text-sm text-muted">Typically replies within 24 hours on business days.</p>
-					</div>
+		<section id="contact" className="relative overflow-hidden bg-navy pt-20 text-white lg:pt-[120px]">
+			<div className="glow -top-[200px] left-1/2 h-[1000px] w-[1000px] -translate-x-1/2" />
+			<Reveal className="container-page relative flex flex-col items-center gap-7 text-center">
+				<span className="mono text-mint">05 — Contact</span>
+				<h2 className="max-w-[900px] font-display text-[40px] font-medium leading-[1.05] tracking-[-0.025em] sm:text-[56px] lg:text-[64px]">
+					Have a product in mind? <br className="hidden sm:block" />
+					Let’s ship it.
+				</h2>
+				<p className="max-w-[560px] text-base leading-[1.6] text-fog sm:text-lg">
+					A role, a product to build from scratch or a club that needs a website. I reply within a day or two.
+				</p>
+				<a
+					href={`mailto:${contact.email}`}
+					className="mt-2 inline-flex h-14 max-w-full items-center rounded-lg bg-mint px-6 font-display text-lg font-medium text-navy-deep shadow-mint-glow transition duration-200 ease-brand hover:bg-[#62f0bb] active:translate-y-px sm:h-16 sm:px-8 sm:text-[22px]"
+				>
+					{contact.email}
+				</a>
+				<div className="flex gap-7 text-[15px] text-fog">
+					<a href={contact.linkedin} target="_blank" rel="noreferrer" className="hover:text-white">
+						LinkedIn ↗
+					</a>
+					<a href={contact.github} target="_blank" rel="noreferrer" className="hover:text-white">
+						GitHub ↗
+					</a>
 				</div>
-			</motion.div>
-		</Section>
+			</Reveal>
+			<footer className="container-page relative mt-[72px] flex h-20 items-center justify-between border-t border-white/10">
+				<span className="mono text-[11px] text-fog-faint">© {new Date().getFullYear()} Brice Braquin</span>
+				<span className="mono text-[11px] text-fog-faint">Made in Koblenz</span>
+			</footer>
+		</section>
 	)
 }
 
