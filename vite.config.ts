@@ -11,6 +11,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         myAnnotator: resolve(__dirname, 'work/my-annotator/index.html'),
+        highlights: resolve(__dirname, 'work/highlights/index.html'),
       },
     },
   },

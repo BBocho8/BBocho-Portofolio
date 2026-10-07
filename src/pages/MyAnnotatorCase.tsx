@@ -3,8 +3,9 @@ import annotatorImg from "../assets/annotator.webp"
 import extensionImg from "../assets/annotator-extension.webp"
 import Contact from "../components/Contact"
 import Navbar from "../components/Navbar"
+import { Mark, MarkLayer, MarkNote, MarkText } from "../components/ui/Mark"
 import Reveal from "../components/ui/Reveal"
-import { links } from "../content"
+import { links, myAnnotatorMonths } from "../content"
 
 const brief = [
 	{ label: "Who", value: "A coach preparing alone at a desk" },
@@ -30,11 +31,11 @@ const extensionFacts = [
 const decisions = [
 	{
 		title: "Removed the sign-in wall.",
-		body: "Guests draw right away with local storage. Accounts add cloud sync, a library and local files.",
+		body: "Since August 2026, guests draw right away and their work saves in the browser. They make an account once it's worth it.",
 	},
 	{
 		title: "Pivoted to one audience.",
-		body: "It started as a tool for teachers, students and creators. Narrowing to football coaches made the product, the copy and the look sharper.",
+		body: "It started as a tool for teachers, students and creators. Narrowing to football coaches made the product, the copy and the look sharper. Even the plans are named for who pays: Coach, Team and Club.",
 	},
 	{
 		title: "Audited the copy against the code.",
@@ -42,7 +43,7 @@ const decisions = [
 	},
 	{
 		title: "Prototyped ball tracking.",
-		body: "A Python spike with pitch calibration, detection and tracking feeds candidates a coach confirms in the app. Human in the loop, not auto-magic.",
+		body: "A separate Python prototype detects players and the ball with YOLO and RF-DETR, and only accepts ball tracks that move plausibly across the pitch. It stays out of the app until a coach can confirm what it finds. Human in the loop, not auto-magic.",
 	},
 ]
 
@@ -121,7 +122,7 @@ const MyAnnotatorCase = () => {
 				<section className="container-page flex flex-col gap-10 pb-20 lg:pb-[120px]">
 					<div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
 						<h2 className="font-display text-[34px] font-medium tracking-[-0.02em] sm:text-[44px]">What I built.</h2>
-						<span className="mono text-ink-muted">379 commits · 19 months</span>
+						<span className="mono text-ink-muted">Built and run solo · {myAnnotatorMonths} months</span>
 					</div>
 					<div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 						{features.map((feature, index) => (
@@ -159,15 +160,22 @@ const MyAnnotatorCase = () => {
 								Chrome Web Store ↗
 							</a>
 						</Reveal>
-						<Reveal className="lg:col-span-7" delay={0.06}>
+						<Reveal className="relative lg:col-span-7" delay={0.06}>
 							<img
 								src={extensionImg}
 								alt="Store screenshot: the Annotate this video button on a YouTube match page"
 								width={1280}
 								height={800}
 								loading="lazy"
-								className="w-full rounded-xl shadow-lg"
+								className="block w-full rounded-xl shadow-lg"
 							/>
+							<MarkLayer viewBox="0 0 1280 800" weight={5} d="M 494 716 C 516 711, 538 711, 556 715" className="hidden sm:block">
+								<rect x="566" y="682" width="308" height="68" rx="14" fill="none" stroke="#72FFC9" strokeWidth="5" />
+							</MarkLayer>
+							<Mark className="right-[62%] top-[84%] hidden sm:block">
+								<MarkText>Shadow root</MarkText>
+								<MarkNote>The host page's CSS can't touch it</MarkNote>
+							</Mark>
 						</Reveal>
 					</div>
 				</section>
@@ -193,11 +201,11 @@ const MyAnnotatorCase = () => {
 				</section>
 
 				<section className="container-page pb-20 lg:pb-[120px]">
-					<a href="/#work" className="group flex items-center justify-between gap-6 rounded-xl bg-paper p-8 sm:px-14 sm:py-12">
+					<a href={links.highlightsCase} className="group flex items-center justify-between gap-6 rounded-xl bg-paper p-8 sm:px-14 sm:py-12">
 						<div className="flex flex-col gap-2.5">
-							<span className="mono text-ink-muted">More work</span>
-							<span className="font-display text-[32px] font-medium tracking-[-0.02em] sm:text-[44px]">Highlights, Qivoa, ClubSiteKit</span>
-							<span className="text-base text-ink-body">Back to everything I build and run.</span>
+							<span className="mono text-ink-muted">Next case study</span>
+							<span className="font-display text-[32px] font-medium tracking-[-0.02em] sm:text-[44px]">Highlights</span>
+							<span className="text-base text-ink-body">A 4.3 GB match cut into a reel in about two minutes, in the browser.</span>
 						</div>
 						<span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-mint text-navy-deep transition-transform duration-200 ease-brand group-hover:translate-x-1 sm:h-[72px] sm:w-[72px]">
 							<LuArrowRight size={28} aria-hidden="true" />

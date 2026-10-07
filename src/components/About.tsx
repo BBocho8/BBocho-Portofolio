@@ -29,7 +29,7 @@ const About = () => {
 				</Reveal>
 
 				<Reveal className="flex flex-col gap-6 lg:col-span-5" delay={0.06}>
-					<span className="mono text-mint">03 — Off the clock</span>
+					<span className="mono text-mint">02 — Off the clock</span>
 					<h2 className="font-display text-[34px] font-medium leading-[1.1] tracking-[-0.02em] sm:text-[44px]">
 						Most of my ideas start on the pitch.
 					</h2>
