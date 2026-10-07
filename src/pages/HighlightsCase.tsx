@@ -106,6 +106,7 @@ const HighlightsCase = () => {
 								alt="Highlights clip review: 65 clips from a real match with thumbnails, start and end controls and a timeline"
 								width={1600}
 								height={1000}
+								fetchpriority="high"
 								className="block w-full rounded-t-xl shadow-lg"
 							/>
 							<MarkLayer viewBox="0 0 1600 1000" weight={4} d="M 696 628 C 640 620, 584 566, 556 506" className="hidden md:block">
@@ -187,19 +188,17 @@ const HighlightsCase = () => {
 					</div>
 					<ol className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
 						{pipeline.map((step, index) => (
-							<Reveal key={step.title} delay={index * 0.05} className="flex">
-								<li className="relative flex flex-1 flex-col gap-2.5 rounded-lg border border-line p-7">
-									<span className="mono text-[11px] text-ink-muted">0{index + 1}</span>
-									<h3 className="font-display text-[22px] font-medium">{step.title}</h3>
-									<p className="text-[15px] leading-[1.6] text-ink-body">{step.body}</p>
-									{index < pipeline.length - 1 && (
-										<LuArrowRight
-											size={20}
-											aria-hidden="true"
-											className="absolute -right-[19px] top-1/2 hidden -translate-y-1/2 rounded-full bg-mint p-0.5 text-navy-deep lg:block"
-										/>
-									)}
-								</li>
+							<Reveal as="li" key={step.title} delay={index * 0.05} className="relative flex flex-col gap-2.5 rounded-lg border border-line p-7">
+								<span className="mono text-[11px] text-ink-muted">0{index + 1}</span>
+								<h3 className="font-display text-[22px] font-medium">{step.title}</h3>
+								<p className="text-[15px] leading-[1.6] text-ink-body">{step.body}</p>
+								{index < pipeline.length - 1 && (
+									<LuArrowRight
+										size={20}
+										aria-hidden="true"
+										className="absolute -right-[19px] top-1/2 hidden -translate-y-1/2 rounded-full bg-mint p-0.5 text-navy-deep lg:block"
+									/>
+								)}
 							</Reveal>
 						))}
 					</ol>

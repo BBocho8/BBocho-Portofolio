@@ -27,18 +27,17 @@ export const highlightsBenchmark = {
 }
 
 // Counted from the visitor's clock, so the copy never goes stale
-const monthsSince = (year: number, month: number) => {
-	const now = new Date()
-	return (now.getFullYear() - year) * 12 + now.getMonth() + 1 - month
+const monthsSince = (year: number, month: number, now: Date) => {
+	return (now.getUTCFullYear() - year) * 12 + now.getUTCMonth() + 1 - month
 }
 
 // My Annotator's first commit: February 2025
-export const myAnnotatorMonths = monthsSince(2025, 2)
+export const getMyAnnotatorMonths = (now: Date) => monthsSince(2025, 2, now)
 
-export const stats = [
+export const getStats = (now: Date) => [
 	{ value: "300+", label: "active users on My Annotator" },
 	{ value: highlightsBenchmark.time, label: `to cut a ${highlightsBenchmark.inputSize} match into a reel, in the browser` },
-	{ value: String(myAnnotatorMonths), label: "months building and running My Annotator, solo" },
+	{ value: String(getMyAnnotatorMonths(now)), label: "months building and running My Annotator, solo" },
 	{ value: "5", label: "products designed, built and hosted myself since 2025" },
 ]
 
