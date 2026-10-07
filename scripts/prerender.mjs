@@ -27,10 +27,12 @@ try {
     const title = template.match(/<title>(.*?)<\/title>/s)?.[1]
     const description = template.match(/<meta\s+name="description"\s+content="([^"]+)"/s)?.[1]
     const canonical = template.match(/<link\s+rel="canonical"\s+href="([^"]+)"/s)?.[1]
-    if (!title || !description || !canonical) throw new Error(`Missing SEO metadata in ${route.file}`)
+    const socialImage = template.match(/<meta\s+property="og:image"\s+content="([^"]+)"/s)?.[1]
+    const socialImageAlt = template.match(/<meta\s+property="og:image:alt"\s+content="([^"]+)"/s)?.[1]
+    if (!title || !description || !canonical || !socialImage || !socialImageAlt) throw new Error(`Missing SEO metadata in ${route.file}`)
     if (!template.includes('<div id="root"></div>')) throw new Error(`Missing render outlet in ${route.file}`)
 
-    const { html, structuredData, image } = render(route.path, renderedAt, { title, description, canonical })
+    const { html, structuredData, image } = render(route.path, renderedAt, { title, description, canonical, socialImage, socialImageAlt })
     // Escape '<' so content can never close the JSON-LD script element.
     const json = JSON.stringify(structuredData).replace(/</g, '\\u003c')
     const head = `<link rel="preload" as="image" href="${image}" fetchpriority="high" />\n\t\t<script type="application/ld+json">${json}</script>`

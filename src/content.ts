@@ -13,6 +13,8 @@ export const links = {
 	sveTemplate: "https://sve.clubsitekit.com",
 	myAnnotatorCase: "/work/my-annotator/",
 	highlightsCase: "/work/highlights/",
+	qivoaCase: "/work/qivoa/",
+	clubSiteKitCase: "/work/clubsitekit/",
 }
 
 // Measured 2026-10-07: the app's own export on my match file, two runs (2:05 and 2:06), the slower one quoted

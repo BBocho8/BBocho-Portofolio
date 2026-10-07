@@ -4,7 +4,7 @@ React, TypeScript and Vite portfolio hosted on Vercel at https://www.bbocho.com/
 Use Node 24 and install dependencies with npm install.
 
 - npm run dev starts the Vite development server.
-- npm run build typechecks, builds the browser assets, prerenders all three pages and verifies the SEO output.
+- npm run build typechecks, builds the browser assets, prerenders all five pages and verifies the SEO output.
 - npm run preview serves the production output locally.
 - npm run lint checks the source.
 - npm run check:seo rechecks an existing production build.
@@ -27,15 +27,23 @@ Entrance animations leave content visible without JavaScript. Date-based text hy
 using the build date before refreshing from the visitor's clock.
 
 When adding a page, add its HTML entry to vite.config.ts and its component/route
-to src/prerender.tsx. Update the expected page count in scripts/check-seo.mjs.
+to src/prerender.tsx. Update the expected page routes in scripts/check-seo.mjs.
 The build checks unique metadata, canonicals, JSON-LD, sitemap coverage, primary image
 loading, rendered headings, content visibility, and all local assets and anchor links.
 
+Each page has its own 1200 × 630 JPEG sharing card in public/social/. Open Graph and
+Twitter metadata include its absolute HTTPS URL and matching image description.
+The build also checks the actual sharing image files, dimensions, size and JSON-LD
+references. See [sharing asset notes and generation prompts](docs/sharing-assets.md).
+
 ## Production verification
 
-After deployment, verify the three public URLs, /robots.txt and /sitemap.xml.
+The four case studies are My Annotator, Highlights, Qivoa and ClubSiteKit. The homepage
+links to each, and their next-case links form a complete browsing loop.
+
+After deployment, verify the five public URLs, /robots.txt and /sitemap.xml.
 In Google Search Console, submit https://www.bbocho.com/sitemap.xml and inspect the
-homepage and both case studies. Search Console access is needed to confirm Google's
+homepage and all four case studies. Search Console access is needed to confirm Google's
 indexing, selected canonical and Core Web Vitals; local checks cannot establish those.
 Validate deployed JSON-LD with Google's Rich Results Test. Page metadata and valid
 structured data help search engines understand the site, but do not guarantee rankings.

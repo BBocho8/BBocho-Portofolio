@@ -12,6 +12,8 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         myAnnotator: resolve(__dirname, 'work/my-annotator/index.html'),
         highlights: resolve(__dirname, 'work/highlights/index.html'),
+        qivoa: resolve(__dirname, 'work/qivoa/index.html'),
+        clubSiteKit: resolve(__dirname, 'work/clubsitekit/index.html'),
       },
     },
   },

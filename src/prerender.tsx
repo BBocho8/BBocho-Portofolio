@@ -3,10 +3,14 @@ import App from "./App"
 import Page from "./Page"
 import MyAnnotatorCase from "./pages/MyAnnotatorCase"
 import HighlightsCase from "./pages/HighlightsCase"
+import QivoaCase from "./pages/QivoaCase"
+import ClubSiteKitCase from "./pages/ClubSiteKitCase"
 import { contact } from "./content"
 import portrait from "./assets/hero-striker.webp"
 import annotatorImage from "./assets/annotator.webp"
 import highlightsImage from "./assets/highlights-clips.webp"
+import qivoaImage from "./assets/qivoa.webp"
+import clubSiteKitImage from "./assets/clubsitekit.webp"
 
 // These are the same components and image imports used by the browser entries.
 // Vite gives their assets the same hashed URLs in both builds.
@@ -14,9 +18,11 @@ export const routes = [
 	{ path: "/", file: "index.html", component: App, image: portrait, name: "Brice Braquin" },
 	{ path: "/work/my-annotator/", file: "work/my-annotator/index.html", component: MyAnnotatorCase, image: annotatorImage, name: "My Annotator" },
 	{ path: "/work/highlights/", file: "work/highlights/index.html", component: HighlightsCase, image: highlightsImage, name: "Highlights" },
+	{ path: "/work/qivoa/", file: "work/qivoa/index.html", component: QivoaCase, image: qivoaImage, name: "Qivoa" },
+	{ path: "/work/clubsitekit/", file: "work/clubsitekit/index.html", component: ClubSiteKitCase, image: clubSiteKitImage, name: "ClubSiteKit" },
 ]
 
-type Metadata = { title: string; description: string; canonical: string }
+type Metadata = { title: string; description: string; canonical: string; socialImage: string; socialImageAlt: string }
 
 export const render = (path: string, renderedAt: string, metadata: Metadata) => {
 	const route = routes.find((page) => page.path === path)
@@ -28,6 +34,7 @@ export const render = (path: string, renderedAt: string, metadata: Metadata) => 
 	const personId = `${home}#brice-braquin`
 	const websiteId = `${home}#website`
 	const pageId = `${metadata.canonical}#webpage`
+	const socialImageId = `${metadata.canonical}#sharing-image`
 	const isHome = path === "/"
 	const structuredData = {
 		"@context": "https://schema.org",
@@ -53,6 +60,15 @@ export const render = (path: string, renderedAt: string, metadata: Metadata) => 
 				publisher: { "@id": personId },
 			},
 			{
+				"@type": "ImageObject",
+				"@id": socialImageId,
+				url: metadata.socialImage,
+				contentUrl: metadata.socialImage,
+				width: 1200,
+				height: 630,
+				caption: metadata.socialImageAlt,
+			},
+			{
 				"@type": isHome ? "ProfilePage" : "WebPage",
 				"@id": pageId,
 				url: metadata.canonical,
@@ -60,6 +76,7 @@ export const render = (path: string, renderedAt: string, metadata: Metadata) => 
 				description: metadata.description,
 				inLanguage: "en",
 				isPartOf: { "@id": websiteId },
+				primaryImageOfPage: { "@id": socialImageId },
 				mainEntity: { "@id": isHome ? personId : `${metadata.canonical}#article` },
 				...(!isHome && { breadcrumb: { "@id": `${metadata.canonical}#breadcrumbs` } }),
 			},
@@ -70,7 +87,7 @@ export const render = (path: string, renderedAt: string, metadata: Metadata) => 
 					headline: `${route.name} case study`,
 					description: metadata.description,
 					url: metadata.canonical,
-					image: new URL(route.image, origin).href,
+					image: [metadata.socialImage, new URL(route.image, origin).href],
 					inLanguage: "en",
 					author: { "@id": personId },
 					mainEntityOfPage: { "@id": pageId },
