@@ -12,13 +12,34 @@ export const links = {
 	clubSiteKit: "https://clubsitekit.com",
 	sveTemplate: "https://sve.clubsitekit.com",
 	myAnnotatorCase: "/work/my-annotator/",
+	highlightsCase: "/work/highlights/",
 }
+
+// Measured 2026-10-07: the app's own export on my match file, two runs (2:05 and 2:06), the slower one quoted
+export const highlightsBenchmark = {
+	time: "2:06",
+	clips: 65,
+	reel: "14:26",
+	inputSize: "4.3 GB",
+	input: "4.3 GB · 1080p H.264 · 2:03:24",
+	output: "1.1 GB · 1080p H.264 + AAC",
+	machine: "MacBook Pro M4 Pro · Chrome",
+}
+
+// Counted from the visitor's clock, so the copy never goes stale
+const monthsSince = (year: number, month: number) => {
+	const now = new Date()
+	return (now.getFullYear() - year) * 12 + now.getMonth() + 1 - month
+}
+
+// My Annotator's first commit: February 2025
+export const myAnnotatorMonths = monthsSince(2025, 2)
 
 export const stats = [
 	{ value: "300+", label: "active users on My Annotator" },
+	{ value: highlightsBenchmark.time, label: `to cut a ${highlightsBenchmark.inputSize} match into a reel, in the browser` },
+	{ value: String(myAnnotatorMonths), label: "months building and running My Annotator, solo" },
 	{ value: "5", label: "products designed, built and hosted myself since 2025" },
-	{ value: "379", label: "commits on my longest-running product" },
-	{ value: "0 MB", label: "uploaded by Highlights. It cuts match video in your browser." },
 ]
 
 export const archive = [
@@ -38,28 +59,9 @@ export const archive = [
 	},
 ]
 
-export const principles = [
-	{
-		title: "Works before sign-in.",
-		body: "My Annotator dropped its sign-in wall. People draw first and make an account once it's worth it.",
-	},
-	{
-		title: "Private by default.",
-		body: "Highlights never uploads your video. Qivoa keeps only the price evidence it needs.",
-	},
-	{
-		title: "Copy matches the code.",
-		body: "I audit product claims against what shipped, in both directions. No feature on a landing page that isn't real.",
-	},
-	{
-		title: "Own the pipeline.",
-		body: "Design, frontend, API, payments, Docker on my own server, analytics with Umami.",
-	},
-]
-
 export const toolkit = [
 	{ group: "Interface", items: ["React", "Next.js", "TypeScript", "Tailwind", "Design systems", "Playwright"] },
-	{ group: "Backend and ops", items: ["Node · Hono", "Postgres · Prisma", "Payload CMS", "Stripe", "Docker · Dokploy"] },
+	{ group: "Backend and ops", items: ["Node", "Hono", "Postgres", "Prisma", "Payload CMS", "Stripe", "Docker", "Dokploy"] },
 	{ group: "Exploring", items: ["WebCodecs", "Expo", "LLM structured outputs", "Computer vision"], highlight: true },
 ]
 

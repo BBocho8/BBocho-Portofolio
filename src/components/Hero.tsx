@@ -68,9 +68,10 @@ const Hero = () => {
 						initial={{ opacity: 0, y: 8 }}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.32, ease, delay: 0.08 }}
-						className="relative order-first w-full lg:order-none lg:col-span-5 lg:max-w-[440px] lg:justify-self-end"
+						className="relative w-full lg:col-span-5 lg:max-w-[440px] lg:justify-self-end"
 					>
-						<div className="relative aspect-[7/6] overflow-hidden rounded-xl lg:aspect-[440/540]">
+						{/* Headline first on small screens: the photo is the personal thread, not the pitch */}
+						<div className="relative aspect-[3/2] overflow-hidden rounded-xl lg:aspect-[440/540]">
 							<img
 								src={strikerImg}
 								alt="Brice Braquin, number 11 for SVE Mendig, dribbling toward the goalkeeper"

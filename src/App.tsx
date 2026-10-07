@@ -2,7 +2,6 @@ import About from "./components/About"
 import Contact from "./components/Contact"
 import Hero from "./components/Hero"
 import Navbar from "./components/Navbar"
-import Principles from "./components/Principles"
 import Toolkit from "./components/Toolkit"
 import Work from "./components/Work"
 
@@ -16,9 +15,8 @@ function App() {
 			<main>
 				<Hero />
 				<Work />
-				<Principles />
-				<About />
 				<Toolkit />
+				<About />
 				<Contact />
 			</main>
 		</>

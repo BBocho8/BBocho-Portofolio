@@ -6,7 +6,7 @@ const Contact = () => {
 		<section id="contact" className="relative overflow-hidden bg-navy pt-20 text-white lg:pt-[120px]">
 			<div className="glow -top-[200px] left-1/2 h-[1000px] w-[1000px] -translate-x-1/2" />
 			<Reveal className="container-page relative flex flex-col items-center gap-7 text-center">
-				<span className="mono text-mint">05 — Contact</span>
+				<span className="mono text-mint">03 — Contact</span>
 				<h2 className="max-w-[900px] font-display text-[40px] font-medium leading-[1.05] tracking-[-0.025em] sm:text-[56px] lg:text-[64px]">
 					Have a product in mind? <br className="hidden sm:block" />
 					Let’s ship it.

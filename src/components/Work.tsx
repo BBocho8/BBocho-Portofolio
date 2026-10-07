@@ -1,3 +1,4 @@
+import { ReactNode } from "react"
 import { LuArrowUpRight } from "react-icons/lu"
 import annotatorVideoImg from "../assets/annotator-video.webp"
 import clubSiteKitImg from "../assets/clubsitekit.webp"
@@ -5,7 +6,7 @@ import highlightsImg from "../assets/highlights.webp"
 import qivoaImg from "../assets/qivoa.webp"
 import sveImg from "../assets/sve.webp"
 import { archive, contact, links } from "../content"
-import { Mark, MarkLayer, MarkText } from "./ui/Mark"
+import { Mark, MarkLayer, MarkNote, MarkText } from "./ui/Mark"
 import Reveal from "./ui/Reveal"
 
 const Meta = ({ label, value }: { label: string; value: string }) => (
@@ -25,19 +26,26 @@ type ProductCardProps = {
 	image: string
 	imageAlt: string
 	imageSurface: string
+	// Marks drawn in the 0 0 1600 900 space: the top 90% of a 1600 × 1000 screenshot
+	annotation?: ReactNode
+	caseHref?: string
 }
 
-const ProductCard = ({ name, status, statusTone, summary, stack, href, image, imageAlt, imageSurface }: ProductCardProps) => (
+const ProductCard = ({ name, status, statusTone, summary, stack, href, image, imageAlt, imageSurface, annotation, caseHref }: ProductCardProps) => (
 	<article className="card flex flex-col overflow-hidden">
-		<div className={`h-[220px] overflow-hidden px-5 pt-5 sm:h-[320px] sm:px-8 sm:pt-8 ${imageSurface}`}>
-			<img
-				src={image}
-				alt={imageAlt}
-				width={1600}
-				height={1000}
-				loading="lazy"
-				className="h-full w-full rounded-t-lg object-cover object-left-top shadow-md"
-			/>
+		<div className={`px-5 pt-5 sm:px-8 sm:pt-8 ${imageSurface}`}>
+			{/* A fixed 16:9 crop of a 16:10 screenshot, so marks land on the same pixels at every width */}
+			<div className="relative aspect-[16/9]">
+				<img
+					src={image}
+					alt={imageAlt}
+					width={1600}
+					height={1000}
+					loading="lazy"
+					className="h-full w-full rounded-t-lg object-cover object-left-top shadow-md"
+				/>
+				{annotation}
+			</div>
 		</div>
 		<div className="flex flex-1 flex-col gap-3.5 p-6 sm:px-9 sm:pb-9 sm:pt-8">
 			<div className="flex items-center justify-between gap-4">
@@ -46,16 +54,28 @@ const ProductCard = ({ name, status, statusTone, summary, stack, href, image, im
 			</div>
 			<p className="text-base leading-[1.6] text-ink-body">{summary}</p>
 			<p className="mono text-[11px] leading-[1.8] text-ink-muted">{stack}</p>
-			<a href={href} target="_blank" rel="noreferrer" className="link-mint mt-auto self-start text-[15px]">
-				{href.replace("https://", "")} ↗
-			</a>
+			<div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-3 text-[15px]">
+				{caseHref && (
+					<a href={caseHref} className="link-mint">
+						Read the case study →
+					</a>
+				)}
+				<a
+					href={href}
+					target="_blank"
+					rel="noreferrer"
+					className={caseHref ? "border-b-[1.5px] border-line-strong pb-0.5 font-medium hover:opacity-80" : "link-mint"}
+				>
+					{href.replace("https://", "")} ↗
+				</a>
+			</div>
 		</div>
 	</article>
 )
 
 const Work = () => {
 	return (
-		<section id="work" className="bg-paper py-20 lg:py-[120px]">
+		<section id="work" className="bg-paper pb-12 pt-20 lg:pb-16 lg:pt-[120px]">
 			<div className="container-page flex flex-col gap-8">
 				<Reveal className="flex flex-col justify-between gap-6 pb-2 lg:flex-row lg:items-end lg:gap-12 lg:pb-6">
 					<div className="flex flex-col gap-4">
@@ -80,8 +100,8 @@ const Work = () => {
 							<div className="flex flex-col gap-3">
 								<h3 className="font-display text-[32px] font-medium tracking-[-0.02em] sm:text-[40px]">My Annotator</h3>
 								<p className="text-[17px] leading-[1.6] text-ink-body">
-									A telestrator for football coaches. Paste a match video, draw on it like a TV analyst, and share a
-									replay your players can act on in the next session.
+									A telestrator for football coaches. Paste a match video and draw on it like a TV analyst, no account
+									needed. Share a replay that opens on the exact moment, so players can act on it next session.
 								</p>
 							</div>
 							<div className="grid grid-cols-2 gap-x-6 gap-y-5 border-y border-line py-5">
@@ -99,19 +119,26 @@ const Work = () => {
 								</a>
 							</div>
 						</div>
-						<div className="relative flex items-center bg-navy-deep p-5 sm:p-10 lg:col-span-7">
-							<img
-								src={annotatorVideoImg}
-								alt="My Annotator drawing arrows, zones and labels over footage of an amateur match"
-								width={1386}
-								height={778}
-								loading="lazy"
-								className="w-full rounded-lg shadow-lg"
-							/>
-							<Mark className="bottom-2 left-2 sm:bottom-5 sm:left-6">
-								<MarkText>Own footage · Rubenach vs Mendig</MarkText>
-							</Mark>
-						</div>
+						<figure className="flex flex-col justify-center gap-3 bg-navy-deep p-5 sm:p-10 lg:col-span-7">
+							<div className="relative">
+								<img
+									src={annotatorVideoImg}
+									alt="My Annotator drawing arrows, zones and labels over footage of an amateur match"
+									width={1386}
+									height={778}
+									loading="lazy"
+									className="block w-full rounded-lg shadow-lg"
+								/>
+								<MarkLayer viewBox="0 0 1386 778" weight={6} d="M 120 148 C 112 128, 118 112, 132 102" className="hidden md:block">
+									<rect x="24" y="28" width="324" height="70" rx="35" fill="none" stroke="#72FFC9" strokeWidth="6" />
+								</MarkLayer>
+								<Mark className="left-[5%] top-[19%] hidden md:block">
+									<MarkText>Deep-linked replays</MarkText>
+									<MarkNote>Open on the exact second and note</MarkNote>
+								</Mark>
+							</div>
+							<figcaption className="mono text-[11px] text-fog-faint">Own footage · Rubenach vs Mendig</figcaption>
+						</figure>
 					</article>
 				</Reveal>
 
@@ -127,6 +154,16 @@ const Work = () => {
 							image={qivoaImg}
 							imageAlt="Qivoa homepage with a deal recommendation for a used console"
 							imageSurface="bg-[#E9EDEA]"
+							annotation={
+								<>
+									<MarkLayer viewBox="0 0 1600 900" weight={7} d="M 1000 760 C 1004 738, 1016 720, 1034 708" className="hidden lg:block">
+										<ellipse cx="1069" cy="673" rx="98" ry="30" fill="none" stroke="#72FFC9" strokeWidth="7" />
+									</MarkLayer>
+									<Mark className="right-[2%] top-[85%] hidden whitespace-nowrap lg:block">
+										<MarkText>Priced by code, not the LLM</MarkText>
+									</Mark>
+								</>
+							}
 						/>
 					</Reveal>
 					<Reveal className="flex" delay={0.06}>
@@ -137,9 +174,21 @@ const Work = () => {
 							summary="Turn a full match into a highlight reel without uploading a byte. Multi-GB video is cut and encoded right in the browser, from a Veo list or marks you set live."
 							stack="React · WebCodecs · Web Workers · File System Access"
 							href={links.highlights}
+							caseHref={links.highlightsCase}
 							image={highlightsImg}
 							imageAlt="Highlights start screen with the match video drop zone"
 							imageSurface="bg-navy"
+							annotation={
+								<>
+									<MarkLayer viewBox="0 0 1600 900" weight={7} d="M 96 734 C 88 700, 94 664, 110 642" className="hidden lg:block">
+										<rect x="24" y="584" width="526" height="44" rx="8" fill="none" stroke="#72FFC9" strokeWidth="7" />
+									</MarkLayer>
+									<Mark className="left-[2%] top-[81%] hidden lg:block">
+										<MarkText>0 bytes uploaded</MarkText>
+										<MarkNote>Decoded and encoded in a Web Worker</MarkNote>
+									</Mark>
+								</>
+							}
 						/>
 					</Reveal>
 				</div>
@@ -199,9 +248,10 @@ const Work = () => {
 								loading="lazy"
 								className="absolute bottom-0 left-0 aspect-[16/10] w-[80%] rounded-lg border-4 border-navy object-cover object-left-top shadow-lg"
 							/>
-							<MarkLayer viewBox="0 0 600 470" d="M 214 124 C 236 78, 292 62, 360 86" />
+							<MarkLayer viewBox="0 0 600 470" d="M 258 118 C 282 84, 320 72, 372 86" className="hidden sm:block" />
 							<Mark surface="navy" className="left-[5%] top-[21%] hidden sm:block">
-								<MarkText>Club site → product</MarkText>
+								<MarkText>Club site → Template 01</MarkText>
+								<MarkNote>Roles for news, fixtures and shop</MarkNote>
 							</Mark>
 						</div>
 					</article>
