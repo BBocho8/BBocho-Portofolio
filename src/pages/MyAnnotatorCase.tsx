@@ -5,7 +5,8 @@ import Contact from "../components/Contact"
 import Navbar from "../components/Navbar"
 import { Mark, MarkLayer, MarkNote, MarkText } from "../components/ui/Mark"
 import Reveal from "../components/ui/Reveal"
-import { links, myAnnotatorMonths } from "../content"
+import { getMyAnnotatorMonths, links } from "../content"
+import { useCurrentDate } from "../hooks/useCurrentDate"
 
 const brief = [
 	{ label: "Who", value: "A coach preparing alone at a desk" },
@@ -48,6 +49,7 @@ const decisions = [
 ]
 
 const MyAnnotatorCase = () => {
+	const myAnnotatorMonths = getMyAnnotatorMonths(useCurrentDate())
 	return (
 		<>
 			<Navbar base="/" />
@@ -95,6 +97,7 @@ const MyAnnotatorCase = () => {
 								alt="My Annotator landing page with annotated amateur match footage"
 								width={1600}
 								height={1000}
+								fetchpriority="high"
 								className="block w-full rounded-t-xl shadow-lg"
 							/>
 						</Reveal>

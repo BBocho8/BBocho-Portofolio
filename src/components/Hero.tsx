@@ -1,11 +1,13 @@
 import { motion } from "framer-motion"
 import strikerImg from "../assets/hero-striker.webp"
-import { stats } from "../content"
+import { getStats } from "../content"
+import { useCurrentDate } from "../hooks/useCurrentDate"
 import { Mark, MarkText } from "./ui/Mark"
 
 const ease = [0.2, 0.8, 0.2, 1] as const
 
 const Hero = () => {
+	const stats = getStats(useCurrentDate())
 	return (
 		<section id="top" className="relative overflow-hidden bg-navy-deep text-white">
 			<div className="glow -right-64 -top-80 h-[900px] w-[900px] opacity-100" />
@@ -17,7 +19,7 @@ const Hero = () => {
 			<div className="container-page relative pt-[104px] lg:pt-[184px]">
 				<div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
 					<motion.div
-						initial={{ opacity: 0, y: 8 }}
+						initial={false}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.32, ease }}
 						className="flex flex-col gap-7 lg:col-span-7 lg:gap-8"
@@ -65,7 +67,7 @@ const Hero = () => {
 					</motion.div>
 
 					<motion.figure
-						initial={{ opacity: 0, y: 8 }}
+						initial={false}
 						animate={{ opacity: 1, y: 0 }}
 						transition={{ duration: 0.32, ease, delay: 0.08 }}
 						className="relative w-full lg:col-span-5 lg:max-w-[440px] lg:justify-self-end"
@@ -77,6 +79,7 @@ const Hero = () => {
 								alt="Brice Braquin, number 11 for SVE Mendig, dribbling toward the goalkeeper"
 								width={1086}
 								height={724}
+								fetchpriority="high"
 								className="h-full w-full object-cover object-[54%_center] [filter:saturate(0.8)_contrast(1.05)]"
 							/>
 							<div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,39,57,0.35)_0%,rgba(31,39,57,0)_30%,rgba(31,39,57,0)_60%,rgba(31,39,57,0.8)_100%)]" />

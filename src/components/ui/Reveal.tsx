@@ -5,19 +5,23 @@ type RevealProps = {
 	children: ReactNode
 	className?: string
 	delay?: number
+	as?: "div" | "li"
 }
 
-// Calm entrance: fade plus a small lift, once. MotionConfig turns it off for reduced motion.
-const Reveal = ({ children, className, delay = 0 }: RevealProps) => (
-	<motion.div
-		initial={{ opacity: 0, y: 8 }}
-		whileInView={{ opacity: 1, y: 0 }}
-		viewport={{ once: true, amount: 0.2 }}
-		transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1], delay }}
-		className={className}
-	>
-		{children}
-	</motion.div>
-)
+// Keep prerendered content visible without JavaScript; enhance with a small lift.
+const Reveal = ({ children, className, delay = 0, as = "div" }: RevealProps) => {
+	const Component = as === "li" ? motion.li : motion.div
+	return (
+		<Component
+			initial={{ y: 8 }}
+			whileInView={{ y: 0 }}
+			viewport={{ once: true, amount: 0.2 }}
+			transition={{ duration: 0.32, ease: [0.2, 0.8, 0.2, 1], delay }}
+			className={className}
+		>
+			{children}
+		</Component>
+	)
+}
 
 export default Reveal

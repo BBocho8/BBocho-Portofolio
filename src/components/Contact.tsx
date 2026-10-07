@@ -1,7 +1,9 @@
 import { contact } from "../content"
+import { useCurrentDate } from "../hooks/useCurrentDate"
 import Reveal from "./ui/Reveal"
 
 const Contact = () => {
+	const year = useCurrentDate().getUTCFullYear()
 	return (
 		<section id="contact" className="relative overflow-hidden bg-navy pt-20 text-white lg:pt-[120px]">
 			<div className="glow -top-[200px] left-1/2 h-[1000px] w-[1000px] -translate-x-1/2" />
@@ -30,7 +32,7 @@ const Contact = () => {
 				</div>
 			</Reveal>
 			<footer className="container-page relative mt-[72px] flex h-20 items-center justify-between border-t border-white/10">
-				<span className="mono text-[11px] text-fog-faint">© {new Date().getFullYear()} Brice Braquin</span>
+				<span className="mono text-[11px] text-fog-faint">© {year} Brice Braquin</span>
 				<span className="mono text-[11px] text-fog-faint">Made in Koblenz</span>
 			</footer>
 		</section>
