@@ -151,6 +151,7 @@ const Work = () => {
 							summary="Know before you buy. Paste a second-hand listing and get an evidence-led deal dossier: facts, risks, a market price range and what to ask the seller."
 							stack="Expo · React 19 · Hono · Postgres · LLM structured outputs"
 							href={links.qivoa}
+							caseHref={links.qivoaCase}
 							image={qivoaImg}
 							imageAlt="Qivoa homepage with a deal recommendation for a used console"
 							imageSurface="bg-[#E9EDEA]"
@@ -217,8 +218,9 @@ const Work = () => {
 									</li>
 								))}
 							</ol>
-							<div className="flex gap-5 text-[15px]">
-								<a href={links.clubSiteKit} target="_blank" rel="noreferrer" className="link-mint">
+							<div className="flex flex-wrap gap-x-5 gap-y-3 text-[15px]">
+								<a href={links.clubSiteKitCase} className="link-mint">Read the case study →</a>
+								<a href={links.clubSiteKit} target="_blank" rel="noreferrer" className="border-b-[1.5px] border-white/30 pb-0.5 font-medium hover:opacity-80">
 									clubsitekit.com ↗
 								</a>
 								<a

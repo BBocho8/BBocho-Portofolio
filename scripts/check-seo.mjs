@@ -7,6 +7,7 @@ const dist = resolve('dist')
 const pages = new Map()
 const titles = new Set()
 const descriptions = new Set()
+const sharingImages = new Set()
 const attributes = (tag) => Object.fromEntries(
   [...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(([, key, value]) => [key, value]),
 )
@@ -15,6 +16,27 @@ const meta = (html, name) => {
   const matches = tags(html, 'meta').filter((tag) => tag.name === name || tag.property === name)
   assert.equal(matches.length, 1, `Expected one ${name} metadata tag`)
   return matches[0].content
+}
+
+// Read the emitted JPEG's frame header so metadata is checked against the file,
+// including accidentally renamed PNGs or exports with the wrong dimensions.
+const jpegDimensions = (buffer) => {
+  assert.equal(buffer.readUInt16BE(0), 0xffd8, 'Sharing images must be real JPEG files')
+  let offset = 2
+  while (offset + 4 < buffer.length) {
+    assert.equal(buffer[offset], 0xff, 'Invalid JPEG segment')
+    while (buffer[offset] === 0xff) offset++
+    const marker = buffer[offset++]
+    if (marker === 0xd9 || marker === 0xda) break
+    if (marker === 0x01 || (marker >= 0xd0 && marker <= 0xd7)) continue
+    const length = buffer.readUInt16BE(offset)
+    assert.ok(length >= 2 && offset + length <= buffer.length, 'Truncated JPEG segment')
+    if ([0xc0, 0xc1, 0xc2].includes(marker)) {
+      return { height: buffer.readUInt16BE(offset + 3), width: buffer.readUInt16BE(offset + 5) }
+    }
+    offset += length
+  }
+  throw new Error('JPEG image dimensions not found')
 }
 
 // Inspect every emitted HTML page rather than testing only the homepage.
@@ -26,7 +48,7 @@ const collect = async (directory) => {
   }
 }
 await collect('')
-assert.equal(pages.size, 3, 'The homepage and both case studies must be emitted')
+assert.deepEqual([...pages.keys()].sort(), ['/', '/work/clubsitekit/', '/work/highlights/', '/work/my-annotator/', '/work/qivoa/'], 'The homepage and all four case studies must be emitted')
 
 for (const [path, html] of pages) {
   assert.match(html, /<html lang="en">/)
@@ -50,7 +72,19 @@ for (const [path, html] of pages) {
   assert.equal(meta(html, 'twitter:card'), 'summary_large_image')
   assert.equal(meta(html, 'twitter:image'), meta(html, 'og:image'))
   assert.ok(meta(html, 'og:image:alt'))
-  assert.ok(meta(html, 'twitter:image:alt'))
+  assert.equal(meta(html, 'twitter:image:alt'), meta(html, 'og:image:alt'))
+  const sharingImage = new URL(meta(html, 'og:image'))
+  assert.equal(sharingImage.origin, origin)
+  assert.match(sharingImage.pathname, /^\/social\/[a-z-]+-v\d+\.jpg$/)
+  assert.ok(!sharingImages.has(sharingImage.href), `${path}: sharing preview must be specific to this page`)
+  sharingImages.add(sharingImage.href)
+  const imageFile = await readFile(resolve(dist, `.${sharingImage.pathname}`))
+  const dimensions = jpegDimensions(imageFile)
+  assert.deepEqual(dimensions, { width: 1200, height: 630 })
+  assert.equal(meta(html, 'og:image:type'), 'image/jpeg')
+  assert.equal(Number(meta(html, 'og:image:width')), dimensions.width)
+  assert.equal(Number(meta(html, 'og:image:height')), dimensions.height)
+  assert.ok(imageFile.length < 1_000_000, `${path}: sharing preview is unnecessarily large`)
   assert.doesNotMatch(meta(html, 'robots'), /noindex|nofollow/)
   assert.match(meta(html, 'robots'), /max-image-preview:large/)
 
@@ -83,11 +117,16 @@ for (const [path, html] of pages) {
   assert.equal(website.url, `${origin}/`)
   assert.equal(page.url, canonical[0].href)
   assert.equal(page.description, description)
+  const socialImage = schema['@graph'].find((node) => node['@type'] === 'ImageObject' && node['@id'] === page.primaryImageOfPage['@id'])
+  assert.equal(socialImage.contentUrl, sharingImage.href)
+  assert.equal(socialImage.width, dimensions.width)
+  assert.equal(socialImage.height, dimensions.height)
   if (path !== '/') {
     const article = schema['@graph'].find((node) => node['@type'] === 'Article')
     const breadcrumbs = schema['@graph'].find((node) => node['@type'] === 'BreadcrumbList')
     assert.equal(article.author['@id'], person['@id'])
     assert.equal(article.url, canonical[0].href)
+    assert.ok(article.image.includes(sharingImage.href))
     assert.equal(breadcrumbs.itemListElement.at(-1).item, canonical[0].href)
   }
 

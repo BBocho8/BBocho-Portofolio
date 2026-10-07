@@ -225,11 +225,11 @@ const HighlightsCase = () => {
 				</section>
 
 				<section className="container-page pb-20 lg:pb-[120px]">
-					<a href={links.myAnnotatorCase} className="group flex items-center justify-between gap-6 rounded-xl bg-paper p-8 sm:px-14 sm:py-12">
+					<a href={links.qivoaCase} className="group flex items-center justify-between gap-6 rounded-xl bg-paper p-8 sm:px-14 sm:py-12">
 						<div className="flex flex-col gap-2.5">
 							<span className="mono text-ink-muted">Next case study</span>
-							<span className="font-display text-[32px] font-medium tracking-[-0.02em] sm:text-[44px]">My Annotator</span>
-							<span className="text-base text-ink-body">A telestrator for coaches, from side project to paid product.</span>
+							<span className="font-display text-[32px] font-medium tracking-[-0.02em] sm:text-[44px]">Qivoa</span>
+							<span className="text-base text-ink-body">A second-hand listing becomes a living deal dossier.</span>
 						</div>
 						<span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-mint text-navy-deep transition-transform duration-200 ease-brand group-hover:translate-x-1 sm:h-[72px] sm:w-[72px]">
 							<LuArrowRight size={28} aria-hidden="true" />
